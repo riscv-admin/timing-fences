@@ -1,37 +1,11 @@
-# {{ New Group Name }} {{ New Group Type }} Charter
+# Microarchitecture Side-Channel Resistant Instruction Spans Task Group TG Charter
+Timing covert channels are used to exfiltrate confidential data using microarchitectural states as a medium for communications. These channels are particularly relevant in the context of microarchitectural attacks such as Spectre and Meltdown.
 
-## Directions for creating a charter
-The information in this file should be created as part of the group formation and approved by your sponsoring group.  See the [Chairs Best Practices policy](https://docs.google.com/document/d/1rtXskVd7YyFq74tQ2OrInyM_-OQa228R5UZs5Pm3Vz0/) for more details.
+ The Microarchitecture Side-Channel Resistant Instruction Spans Task Group (proposed short name: uSCR-IS TG) will define a small ISA extension to prevent malicious covert channels. More precisely, we will introduce a notion of side-channel resistant instruction spans, such that covert channels can be prevented across instruction spans by adapting the microarchitecture. Introducing instruction spans as an architectural feature makes it possible for higher-level program logic to declare that a sequence of instructions should be microarchitecturally isolated within a larger instruction stream (for example, a span of instructions that implement a cryptographic operation may be isolated to protect against side-channel attacks). The proposed RISC-V uSCR-IS TG will collaborate to produce:
+ 1. A small ISA extension (possibly no more than one or two instructions, or only a new CSR).
+ 2. A non-normative security guide: defining threat models, developing rationale, etc. -> intended for security engineers.
+ 3. A non-normative implementation guide, focusing on the principles of microarchitecture design that enable protection against covert channels. -> intended for hardware engineers.
+ 4. A proof-of-concept implementation, including both a prototype RISC-V core and compiler managing the necessary intrinsics.
+ 5. A test strategy guide, including a test suite for common covert channels.
 
-A good Task Group (TG) charter describes how it achieves filling in a gap defined by the Special Interest Group (SIG) or Committee that spawned it (directly or dotted line). It lists the specific small set of  deliverables it will deliver.
-
-A SIG is an extension of a Committee, in that its only deliverables are strategy, gaps, and prioritizations, and helping spawn other SIGs or TGs to fill the gaps. A good SIG charter spells out the small set of topic areas their strategy will address along with its responsibilities as laid out in this bullet.
-
-In the next section is a raw template.  Delete the section header and substitute appropriate text in for [ALL CAPS ITEMS AS DESCRIBED].
-
-**Delete this whole section when done.**
-
-## Raw template
-
-The {{ New Group Name }} {{ New Group Type }} will [OVERALL MISSION STATEMENT in 2-3 
-SENTENCES]
-
-[THIS PARAGRAPH IS OPTIONAL]
-The [TERM 1] IS [DEFINITION 1].  [EXPLANATION  OF IMPORTANCE OF TERM 1]. [MORE TERMS AND DEFINITIONS AS NEEDED]
-
-[BACKGROUND INFORMATION ABOUT RELEVANCE OF GROUP/TECHNOLOGY]
-
-The {{ New Group Name }} {{ New Group Type }} will [DELIVER SOMETHING] [WITH THESE ATTRIBUTES]:
-
- - [ATTRIBUTE 1]
- - [ATTRIBUTE 2]
- - [... AS NEEDED]
-
-[THIS PARAGRAPH AND LIST ARE OPTIONAL, ESPECIALLY IF THE LIST IS EMPTY]
-The following items are presently not planned to be delivered as part of this work, but may be considered in future versions:
-
- 1. [FEATURE 1]
- 1. [FEATURE 2]
- 1. [... AS NEEDED]
-
-To achieve its goals, the {{ New Group Name }} {{ New Group Type }}, will interact with the following groups: [GROUP NAME 1] [GROUP TYPE 1], [GROUP NAME 2] [GROUP TYPE 2], [...] and [GROUP NAME N] [GROUP TYPE N]. 
+The TG will work with the appropriate Priv/Unpriv ISA committee, Architecture Review Committee, and Security HC to determine which parts of the work should follow the standard ISA specification process, Fast Track process, or non-ISA process, and how other recent policy or process changes may apply (such as the discussion around the use of hint instructions in CFI).
