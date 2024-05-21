@@ -1,6 +1,6 @@
 # Microarchitecture Side-Channel Resistant Instruction Spans Task Group TG Charter
 Covert channels are communication channels that a supervisor cannot observe nor control.
-Timing channels are covert channels that exploit timing interferences through contention for shared microarchitectural resources, such as caches, buffers, and branch predictors.
+Timing channels are covert channels that exploit timing interferences caused by competition for shared microarchitectural resources, such as caches, buffers, and branch predictors.
 These channels can be used to extract secrets in microarchitectural speculation attacks like Spectre or can inadvertently leak information as a side channel.
 
 To prevent timing channels, shared hardware resources must be strictly partitioned between isolated applications.
