@@ -7,7 +7,7 @@ To prevent timing channels, shared hardware resources must be strictly partition
 The Timing Fences Task Group will propose a small ISA extension to enable such partitioning of shared microarchitectural state.
 For instance, we will introduce a temporal fence instruction which can be used to *temporally* partition shared on-core microarchitectural state by clearing it, e.g., when switching between isolated applications.
 
-The proposed RISC-V uSCR-IS TG will collaborate to produce:
+The proposed RISC-V Timing Fences TG will collaborate to produce:
  1. A small ISA extension (possibly no more than one or two instructions, or only a new CSR).
  2. A non-normative short guide: defining threat models, developing rationale, etc.
  3. A proof-of-concept implementation, including both a prototype RISC-V core and compiler that manages the necessary intrinsics.
