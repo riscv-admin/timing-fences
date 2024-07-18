@@ -1,0 +1,122 @@
+= fence.time, a RISC-V extension proposal
+
+== Why fence.time: the rationale
+
+Covert channels allow unauthorized communication across security boundaries.
+Attackers can leverage these covert channels to leak data, from supervisor to user privilege levels, from one process to another, etc.
+Timing channels use the timing of events to signal information.
+Microarchitectural timing channels control event timing through the use of microarchitectural state that depends on execution history.
+
+While microarchitectural state can affect other physical quantities, such as temperature, power draw, or electromagnetic emanation,
+our threat model focuses on timing covert channels since they are easy to exploit remotely.
+We therefore consider other physical channels out of scope.
+
+Covert channels are, among others, utilised in transient-execution attacks.
+Such attacks typically use speculative execution to read a secret and then use a covert timing channel to exfiltrate the data.
+
+*Any microarchitectural state that depends on execution history* can be used to implement a covert channel. This includes CPU caches, other forms of caching (such as the TLB or branch target buffers) but also state machines as they are used in prefetchers, or for cache-line replacement. Prohibiting such microarchitectural state outright is infeasible, so we need ways to manage it securely.
+
+Furthermore, most such state is inherently shared and requiring strict partitioning between security domains is also infeasible. An automatic resetting of microarchitectural state on hardware-detectable events (such as writing the page table pointer) would be overkill, as multiple address spaces may share the same security domain.
+
+It is therefore necessary to provide a mechanism by which software can inform hardware that a switch of security domain is being performed, and sharing of microarchitectural state across this switch must be prevented.
+This is the purpose of _fence.time_.
+
+== fence.time semantics
+
+This is a first draft proposal for _fence.time_.
+
+We define the following RISC-V instruction, without source nor destination registers, but with optional flags.
+
+[,asm]
+----
+fence.time [flags]
+----
+
+The flags may be used to restrict the action of _fence.time_ to specific subsets of microarchitectural state.
+The core must guarantee the following semantics.
+
+[literal]
+The timing of any instruction or sequence of instructions executing after the fence must be independent of any microarchitectural state before the fence. The flags may exclude this requirement for some subsets of microarchitectural state.
+
+In this definition, timing is any measurable latency: we do not care if this is the actual latency of the execution of an instruction or time spent in the issue queue, or something else.
+
+Defined flags are the following:
+
+- `PRIV_SWITCH`: the _fence.time_ is associated with a privilege level change.
+- `AS_SWITCH`: the _fence.time_ is associated with an address space change.
+- `INT_SWITCH`: the _fence.time_ is associated with an interrupt.
+- `VM_SWITCH`: the _fence.time_ is associated with a VM change.
+
+Any combination of flags is valid. See <<section-split,Partitioning section>> for more details on how these flags may be used.
+
+== Implementation guidelines
+
+
+=== No timing dependencies
+
+One way of enforcing _fence.time_ semantics is to have instructions executing in constant time.
+Arithmetic operations (usually excluding division and sometimes multiplication) typically execute in constant time.
+
+The RISC-V extension Zkt mandates execution in in data-independent manner for a given list of instructions.
+*Our requirements here are different*.
+
+We recognize that instruction execution time is a fuzzy concept on a modern complex microarchitecture: is it only the time spent in the execute stage ? Or does it comprise microarchitectural behaviours such as instruction scheduling ?
+
+In our case, timings designate *any* measurable timings (with `RDTIME` for example).
+
+=== Flush
+
+The most direct way to prevent microarchitectural state timing dependency is to reset the state to a deterministic value.
+Hence, _fence.time_ may be implemented as flushing all state, as long as the flush is completed before any future access of the state.
+
+[example]
+In the case of a simple data cache, flushing includes invalidating all data present. *However, that on its own is not enough.* For example, it is necessary to erase any metadata that is used for cache-line allocation to ensure future execution is completely independent on any execution prior to executing _fence.time_.
+
+WARNING: Any microarchitectural state left intact accross _fence.time_ may still be used to support a covert channel.
+
+[[section-split]]
+=== Partitioning
+
+An alternative to flushing may be partitioning of state.
+
+What to flush is microarchitecture dependent.
+But usually the biggest threats are with cache and branch predictions mechanisms.
+But flushing can be costly, this is why, in some specific cases, we may prefer to partition resources instead.
+Supporting _fence.time_ may imply microarchitectural changes.
+
+Some interfaces should require a total microarchitectural flush but the cost of it is unmanageable. A partitioning scheme can be used instead.
+In this case, _fence.time_ *may* avoid to flush the corresponding structures.
+
+This is the purpose of the flags that indicate that some microarchitectural state may *not* be flushed.
+
+[example]
+An application is performing a system call and the privilege level is switched to supervisor.
+You want to prevent covert channels, but your core already have branch predictor states partitioned by privilege level.
+By flagging the switch as `fence.time PRIV_SWITCH`, the hardware can decide to not flush the branch predictor states.
+
+=== Reorder barrier
+
+With its semantics so defined, _fence.time_ imposes that out of order cores cannot reorder the fence *for instructions impacting the microarchitectural state*.
+It is effectively a reorder barrier.
+
+=== Propagation to the bus / peripherals
+
+Covert channels are not only supported by the core microarchitectural state.
+The attacker can also use peripherals states, accessible and modifiable from the core, as such.
+
+The _fence.time_ semantics MUST be propagated to the core bus, to all peripherals so that they correctly deal with it.
+
+[example]
+The simplest example is the last level cache (LLC), shared by several cores which can be used to create a covert channel. But flushing the LLC is not an efficient solution, neither for performances nor security (risks of contention). To adhere to the _fence.time_ semantics, the LLC is thus required to be partitioned.
+
+== fence.time timing variability
+
+Most microarchitectural state is read-only and should be possible to reset in constant time. But this obviously does not apply to the data cache, which (if it is a write-back cache) must have all dirty lines written back before resetting. This makes the _fence.time_ execution latency inherently history-dependent. There must be a way to prevent this variable latency from being observable.
+
+One way to address this would be to force _fence.time_ to execute in constant time. Alternatively, the privileged software could contain a delay loop that pads execution time to a constant value. However, in practice this software padding may be difficult to do accurately.
+
+Nevertheless, there are benefits of decoupling latency padding from flushing. For example, software is likely to perform operations during a context switch that too have a history-dependent latency. An example is an interrupt at a known time, that do some operations before the contex switch.
+It therefore makes sense to defer the padding until after all such operations have been performed.
+
+The better approach seems to have a separate instruction for time padding, such as a `pause` instruction that halts execution until reaching a given cycle count.
+For instance, an OS can compute the target cycle count by adding a constant worst-case execution time for all history-dependend execution preceeding `pause` (e.g. _fence.time_) to the cycle count of the most recent CLINT timer interrupt, which generally arrives at a history-independent time.
