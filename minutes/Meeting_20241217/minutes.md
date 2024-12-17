@@ -19,9 +19,9 @@ https://d106tm.org/wp-content/uploads/2018/09/Quick-Guide-to-Roberts-Rules.pdf
 
 ## Agenda
 
-- [] Review the TG charter https://github.com/riscv-admin/timing-fences/blob/main/CHARTER.md
-- [] Identify people willing to actively participate (including writing spec and security guide).
-- [] Review the TG working document https://github.com/riscv-admin/timing-fences/blob/main/prespecifications/fence_time.adoc that should lead to a specification and security guide.
+- [x] Review the TG charter https://github.com/riscv-admin/timing-fences/blob/main/CHARTER.md
+- [] Identify people willing to actively participate (including writing spec and security guide). => Postponed
+- [] Review the TG working document https://github.com/riscv-admin/timing-fences/blob/main/prespecifications/fence_time.adoc that should lead to a specification and security guide. => Postponed, but a few related discussions
 
 ## Notes
 
@@ -32,6 +32,12 @@ https://d106tm.org/wp-content/uploads/2018/09/Quick-Guide-to-Roberts-Rules.pdf
 "channels that a supervisor cannot observe nor control” -> supervisor has a precise RISC-V meaning, but we use it in the general meaning.
 
 "Timing channels are covert channels that exploit timing interferences caused by competition for shared microarchitectural resources, such as caches, buffers, and branch predictors." -> same for words "interferences" and "competition".
+
+"Microarchitecture" is too broad ?: does in include in-core / out-of-core ?
+Is DVFS captured in fence.time semantics ?
+
+Rephrasing charter => [edited Charter joined](./CHARTER_edited.md).
+Need for a programming model associated with fence.time in the charter.
 
 ### Declaration of intention to contribute
 
@@ -46,9 +52,3 @@ Intended deliverables:
 ### Working document review
 
 [Link to working document version being discussed](./fence_time_20241217.adoc).
-
-## Adjournment
-
-- Motion to Adjourn Made By:  
-- Seconded By: 
-- Time Adjourned: 
