@@ -2,7 +2,8 @@
 
 ## Infos
 
-16:30-17:00 UTC
+Dec 17th, 2024, 16:30-17:00 UTC
+
 Zoom link: https://zoom-lfx.platform.linuxfoundation.org/meeting/97756034446?password=c7de69a4-4f20-4de8-a2e2-a4731b333c73
 
 ## Disclosures
@@ -11,6 +12,7 @@ https://lf-riscv.atlassian.net/wiki/spaces/HOME/pages/16154892/Meeting+Disclosur
 
 ## Debating rules
 
+As far as I (Ronan) know, not yet required but going to.
 https://d106tm.org/wp-content/uploads/2018/09/Quick-Guide-to-Roberts-Rules.pdf
 
 ## Participants
