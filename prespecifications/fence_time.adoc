@@ -1,5 +1,10 @@
 = fence.time, a RISC-V extension proposal
 
+[WARNING]
+===
+This document is only a support for discussion.
+===
+
 == Why fence.time: the rationale
 
 Covert channels allow unauthorized communication across security boundaries.

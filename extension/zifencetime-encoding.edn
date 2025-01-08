@@ -1,0 +1,17 @@
+//# 3 "Zifencetime" Timinng Fence
+
+[wavedrom, ,svg]
+....
+{reg: [
+  {bits: 7,  name: 'opcode',    attr: ['7', 'MISC-MEM']},
+  {bits: 5,  name: 'rd',    attr: ['5', '0']},
+  {bits: 3,  name: 'funct3', attr: ['3', 'FENCE.TIME']},
+  {bits: 5,  name: 'rs1',   attr: ['5', '0']},
+  {bits: 1,  name: 'Priv', attr: ['1']},
+  {bits: 1,  name: 'AS', attr: ['1']},
+  {bits: 1,  name: 'Int', attr: ['1']},
+  {bits: 1,  name: 'VM', attr: ['1']},
+  {bits: 4, name: 'reserved', attr: ['4', '0']},
+  {bits: 4, name: 'custom', attr: ['4', '0']},
+]}
+....

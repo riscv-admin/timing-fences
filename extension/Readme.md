@@ -1,0 +1,11 @@
+# Readme
+
+
+## To build locally
+
+Install *asciidoctor*, *asciidoctor-diagram* and *wavedrom-cli*.
+
+Then
+```bash
+asciidoctor -r asciidoctor-diagram Zifencetime.adoc
+```
