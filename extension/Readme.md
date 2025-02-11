@@ -7,5 +7,5 @@ Install *asciidoctor*, *asciidoctor-diagram* and *wavedrom-cli*.
 
 Then
 ```bash
-asciidoctor -r asciidoctor-diagram Zifencetime.adoc
+asciidoctor-pdf -r asciidoctor-diagram Zifencetime.adoc
 ```

@@ -29,3 +29,7 @@ The `VM` flag equal to 1 indicates a switch to another virtual machine, typicall
 This instruction is functionally equivalent to a NOP. Adding or removing this instruction does not change the functionality of the program, but it can drastically alter performance.
 ====
 
+[WARNING]
+====
+The effectiveness of FENCE.TIME depends heavily on the underlying hardware implementation, which may vary between systems. Even when FENCE.TIME is used correctly, a comprehensive security evaluation is essential to ensure that the intended microarchitectural state isolation is achieved and that all potential covert channels are effectively mitigated.
+====
