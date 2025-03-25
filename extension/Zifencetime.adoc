@@ -15,18 +15,16 @@ The timing of any instruction or sequence of instructions that execute after FEN
 Flags indicating the associated security boundary may exclude this requirement for some subsets of microarchitectural state.
 
 The `Priv` flag equal to 1 indicates that the fence is associated with a privilege-level switch.  
-Notably, branch predictor state can be partitioned by privilege level in the implementation.  
-In this case, a privilege-level switch would not require flushing this particular state.
 
 The `AS` flag equal to 1 indicates a change of address space, typically associated with an ASID modification.
 
-The `Int` flag equal to 1 indicates that the fence is applied as part of state isolation in relation to an interrupt.
+The `SD` flag equal to 1 indicates a change of supervisor domain, typically associated with a SDID modification.
 
 The `VM` flag equal to 1 indicates a switch to another virtual machine, typically associated with a VMID modification.
 
 [NOTE]
 ====
-This instruction is functionally equivalent to a NOP. Adding or removing this instruction does not change the functionality of the program, but it can drastically alter performance.
+This instruction is a hint functionally equivalent to a NOP. Adding or removing this instruction does not change the functionality of the program, but it can drastically alter performance.
 ====
 
 [WARNING]
