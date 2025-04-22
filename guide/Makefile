@@ -21,7 +21,7 @@ riscvintl/riscv-docs-base-container-image:latest
 # in the source document itself.
 SRC_DIR := ./src
 BUILD_DIR := build
-HEADER_SOURCE := $(SRC_DIR)/docs-dev-guide.adoc
+HEADER_SOURCE := $(SRC_DIR)/main.adoc
 GIT_SHA_DOC := $(SRC_DIR)/git_sha.adoc
 
 ASCIIDOCTOR_PDF := asciidoctor-pdf

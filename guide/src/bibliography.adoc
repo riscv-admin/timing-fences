@@ -1,10 +1,12 @@
 [bibliography]
 = Bibliography
 
-- [[[spectre]]] Kocher, P., Horn, J., Fogh, A., Genkin, D., Gruss, D., Haas, W., ... & Yarom, Y. (2019). Spectre attacks: Exploiting speculative execution. In 2019 IEEE Symposium on Security and Privacy (SP) (pp. 1-19). IEEE.
 
-- [[[meltdown]]] Lipp, M., Schwarz, M., Gruss, D., Prescher, T., Haas, W., Fogh, A., ... & Mangard, S. (2018). Meltdown: Reading kernel memory from user space. In 27th USENIX Security Symposium (USENIX Security 18) (pp. 973-990).
+bibliography::[]
 
-- [[[mds]]] Van Schaik, S., Milburn, A., Österlund, S., Frigo, P., Maisuradze, G., Razavi, K., ... & Giuffrida, C. (2019). RIDL: Rogue in-flight data load. In 2019 IEEE Symposium on Security and Privacy (SP) (pp. 88-105). IEEE.
+//bibliography::references.bib[ieee]
 
-- [[[flush-reload]]] Yarom, Y., & Falkner, K. (2014). FLUSH+ RELOAD: A high resolution, low noise, L3 cache side-channel attack. In 23rd USENIX Security Symposium (USENIX Security 14) (pp. 719-732).
+//* [[[pp]]] Andy Hunt & Dave Thomas. The Pragmatic Programmer:
+//From Journeyman to Master. Addison-Wesley. 1999.
+//* [[[gof,gang]]] Erich Gamma, Richard Helm, Ralph Johnson & John Vlissides.
+//Design Patterns: Elements of Reusable Object-Oriented Software. Addison-Wesley. 1994.

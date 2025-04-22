@@ -3,8 +3,6 @@
 
 This document provides guidance on understanding and mitigating covert channels in RISC-V implementations. It is intended for hardware designers, security researchers, and system architects working with RISC-V architecture.
 
-This document was created by the RISC-V Security Working Group to address the growing concerns about side-channel and covert channel attacks in modern processor architectures.
-
-RISC-V specifications require the use of AsciiDoc markup and the Asciidoctor toolchain with advanced publishing features that are provided by several add-ons.
+This document was created by the RISC-V Timing Fences Task Group to address the growing concerns about side-channel and covert channel attacks in modern processor architectures.
 
 This document is released under a Creative Commons Attribution 4.0 International License.
