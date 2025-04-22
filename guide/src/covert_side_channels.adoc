@@ -1,0 +1,6 @@
+[[covert-side-channels]]
+== Covert and Side Channels
+
+This section explains what covert and side channels are, how they differ from traditional security vulnerabilities, and why they pose significant security risks in modern computing systems.
+
+// Content to be added here

@@ -1,0 +1,6 @@
+[[spectre-attacks]]
+=== Spectre Attacks
+
+This section details Spectre attacks, how they exploit speculative execution in RISC-V processors, and their various variants.
+
+// Content to be added here

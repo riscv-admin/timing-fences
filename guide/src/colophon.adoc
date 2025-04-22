@@ -1,16 +1,10 @@
 [colophon]
 = Preface
 
-This document demonstrates the use of AsciiDoc for RISC-V specifications, with the goal of capturing information that will result in effective and efficient communication of the specs.
+This document provides guidance on understanding and mitigating covert channels in RISC-V implementations. It is intended for hardware designers, security researchers, and system architects working with RISC-V architecture.
 
-AsciiDoc is currently the most feature-rich of the popular lightweight markup languages. As an Open Source effort, it is gaining wider adoption and there is an link:https://asciidoc-wg.eclipse.org/[AsciiDoc working group] to standardize the AsciiDoc specification as well as other ways to get involved.
+This document was created by the RISC-V Security Working Group to address the growing concerns about side-channel and covert channel attacks in modern processor architectures.
 
-RISC-V specifications require the use of AsciiDoc markup and the Asciidoctor toolchain with advanced publishing features that are provided by several add-ons. The <https://github.com/riscv/docs-spec-template> repo allows you to jump into writing a spec.
+RISC-V specifications require the use of AsciiDoc markup and the Asciidoctor toolchain with advanced publishing features that are provided by several add-ons.
 
-
-If you'd like to discuss the documentation build toolchain, please join the RISC-V group link:https://lists.riscv.org/g/sig-documentation[sig-documentation] devoted to supporting the RISC-V spec documentation. As members of an Open Source community, we like to support other open source efforts, and for that reason we encourage coordination in adding features so that everyone benefits.
-
-[NOTE]
-====
-This section is technically called a colophon and is useful as a preface. Its contents should be replaced with your preface contents.
-====
+This document is released under a Creative Commons Attribution 4.0 International License.

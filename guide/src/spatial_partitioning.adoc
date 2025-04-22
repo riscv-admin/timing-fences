@@ -1,0 +1,6 @@
+[[spatial-partitioning]]
+== Spatial Partitioning
+
+This section details spatial partitioning approaches that can be used to isolate resources and prevent covert channels in RISC-V implementations.
+
+// Content to be added here
