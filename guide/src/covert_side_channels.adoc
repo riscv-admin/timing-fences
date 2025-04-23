@@ -1,2 +1,22 @@
 [[covert-side-channels]]
 === Covert and Side Channels
+
+The ability of an attacker to exfiltrate and retrieve a secret can be viewed as the establishment of a communication channel.
+The attacker’s goal is to establish this communication channel across a security boundary.
+
+For example, this could allow a user-mode process to read a secret manipulated during a system call executed in supervisor mode.
+
+Like any communication channel, there is an emitter (often called the Trojan) trying to communicate the secret to the receiver (often called the Spy).
+Two threat models are usually considered:
+
+* *Covert Channels* refer to the communication channels where both the Trojan and Spy are controlled by the attacker.
+* *Side Channels* refer to communication channels where only the Spy is under the attacker's control. In this model, the Trojan's role is inadvertently played by the victim.
+
+
+These communication channels can take several forms.
+A secret can be leaked as a dependent power consumption, measured with an oscilloscope.
+Or a function's duration may depend on secret data; in this case, the channel is a timing (covert or side) channel.
+
+// Architectural timing channels
+
+// Microarchitectural timing channels
