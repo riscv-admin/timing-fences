@@ -1,6 +1,3 @@
 [[temporal-partitioning]]
-== Temporal Partitioning
+=== Temporal Partitioning
 
-This section explains temporal partitioning techniques that can be used to mitigate timing-based covert channels in RISC-V processors.
-
-// Content to be added here

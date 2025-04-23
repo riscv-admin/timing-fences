@@ -1,6 +1,3 @@
 [[microarchitectural-data-sampling]]
 === Microarchitectural Data Sampling
 
-This section explains how microarchitectural data sampling attacks work and their implications for security in RISC-V processors.
-
-// Content to be added here

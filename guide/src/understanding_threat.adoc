@@ -1,7 +1,6 @@
 [[understanding-threat]]
-= Understanding the Threat
+== Understanding the Threat
 
-This chapter provides an overview of covert and side channels, their implications for security, and how they can be exploited in modern computing systems, particularly in RISC-V implementations.
 
 include::covert_side_channels.adoc[]
 include::exploiting_covert_channels.adoc[]

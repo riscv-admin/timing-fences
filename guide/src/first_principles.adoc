@@ -1,6 +1,3 @@
 [[first-principles]]
-== First Principles
+=== First Principles
 
-This section discusses the fundamental principles that guide the design of effective mitigations against covert channels in RISC-V implementations.
-
-// Content to be added here

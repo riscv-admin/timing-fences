@@ -1,7 +1,6 @@
 [[mitigating-covert-channels]]
-= Mitigating Covert Channels
+== Mitigating Covert Channels
 
-This chapter discusses approaches and techniques to mitigate covert channels in RISC-V hardware and software implementations.
 
 include::first_principles.adoc[]
 include::temporal_partitioning.adoc[]
