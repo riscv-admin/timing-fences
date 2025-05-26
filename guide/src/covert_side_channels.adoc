@@ -21,7 +21,6 @@ Looking at timing channels in a CPU, two main causes can be found.
 * *Architectural timing channels* occur when different execution paths are followed depending on the secret, for example, by branching on a condition involving a secret value. Different execution paths usually mean different execution duration. Architectural timing channels are software vulnerabilities: they should not occur in security-minded programs.
 * *Microarchitectural timing channels* can occur even in the absence of architectural timing channels, with a correct software implementation. In this case, timing variation can still occur due to the hardware implementation. For example, a _load_ instruction whose address is secret-dependent can induce a covert channel because of cache memories.
 
-// constant time programming
 [NOTE]
 .Constant time programming
 ====
