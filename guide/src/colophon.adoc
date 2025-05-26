@@ -6,3 +6,18 @@ This document provides guidance on understanding and mitigating covert channels 
 This document was created by the RISC-V Timing Fences Task Group to address the growing concerns about side-channel and covert channel attacks in modern processor architectures.
 
 This document is released under a Creative Commons Attribution 4.0 International License.
+
+
+[WARNING]
+Terminology, definitions, etc on microarchitectural attacks have not completely converged at the time of this writing.
+In this document, we take an opiniated stance where we define and use a consistent terminology, that thus may diverge from other documents on the same topic.
+
+
+
+[WARNING]
+.This document is in the link:https://lf-riscv.atlassian.net/wiki/display/HOME/Specification+States[Development state]
+====
+Assume everything can change. This draft specification will change before being accepted
+as standard, so implementations made to this draft specification will likely not conform
+to the future standard.
+====
