@@ -12,29 +12,34 @@ Like any communication channel, there is an emitter (often called the Trojan)
 trying to communicate the secret to the receiver (often called the Spy). Two
 threat models are usually considered:
 
-* *Covert Channels* refer to the communication channels where both the Trojan
+* *Covert Channels* refer to communication channels where both the Trojan
   and Spy are controlled by the attacker.
 * *Side Channels* refer to communication channels where only the Spy is under
   the attacker's control. In this model, the Trojan's role is inadvertently
   played by the victim.
 
-These communication channels can take several forms. A secret can be
+Communication channels can take several forms. A secret can be
 communicated, or leaked, as secret-dependent power consumption measured with an
 oscilloscope. Or a function's duration may depend on secret data; in this case,
 the channel is a timing (covert or side) channel.
 
-Looking at timing channels in a CPU, two main causes can be found.
+Looking at timing channels in a CPU, two main causes can be found:
 
-* *Architectural timing channels* occur when different execution paths are
-  followed depending on the secret, for example, by branching on a condition
-  involving a secret value. Different execution paths usually mean different
-  execution duration. Architectural timing channels are software
-  vulnerabilities: they should not occur in security-minded programs.
-* *Microarchitectural timing channels* can occur even in the absence of
-  architectural timing channels, with a correct software implementation. In
-  this case, timing variation can still occur due to the hardware
-  implementation. For example, a _load_ instruction whose address is
-  secret-dependent can induce a covert channel because of cache memories.
+* *Architectural timing channels* occurs when a program executes different
+  instructions, or the same instructions with different architectural
+  side-effects, using a secret. For example, by branching on a condition
+  involving a secret value, or by a multiplication having a latency dependent
+  on the inputs. Architectural timing channels are software vulnerabilities as
+  they arise from the instructions and data operated on by a program: they
+  should not occur in security-minded programs.
+* *Microarchitectural timing channels* occur due to changes in
+  microarchitectural structures as a result of the execution of a sequence of
+  instructions that may or may not be committed. Therefore, this type of timing
+  channels can occur even in the absence of architectural timing channels, with
+  a correct software implementation. In this case, timing variation can still
+  occur due to the hardware implementation. For example, a _load_ instruction
+  whose address is secret-dependent can induce a covert channel because of the
+  cache hierarchy.
 
 [NOTE]
 .Constant time programming
