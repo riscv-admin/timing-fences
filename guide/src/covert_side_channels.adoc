@@ -52,7 +52,7 @@ Looking at timing channels in a CPU, two main causes can be found:
 Constant time programming is a programming methodology that aims to generate
 a program that doesn't leak secret data through a timing channel. It
 encompasses the set of techniques (programming patterns, compiler
-configurations, ...) to achieve said result. Beware, depending on the context,
+configurations, etc.) to achieve said result. Beware, depending on the context,
 constant time programming may only consider architectural timing channels and
 declare microarchitectural leakage out of scope.
 ====
