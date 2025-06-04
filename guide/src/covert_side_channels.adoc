@@ -33,13 +33,18 @@ Looking at timing channels in a CPU, two main causes can be found:
   they arise from the instructions and data operated on by a program: they
   should not occur in security-minded programs.
 * *Microarchitectural timing channels* occur due to changes in
-  microarchitectural structures as a result of the execution of a sequence of
-  instructions that may or may not be committed. Therefore, this type of timing
-  channels can occur even in the absence of architectural timing channels, with
-  a correct software implementation. In this case, timing variation can still
-  occur due to the hardware implementation. For example, a _load_ instruction
-  whose address is secret-dependent can induce a covert channel because of the
-  cache hierarchy.
+  microarchitectural structures, to improve the performance of program, as a
+  result of the execution of a sequence of instructions that may or may not be
+  committed. The timing variation introduce is by design. Therefore, this type
+  of timing channels can occur even in the absence of architectural timing
+  channels, with a correct software implementation. In this case, timing
+  variation can still occur due to the hardware implementation. For example, a
+  _load_ instruction whose address is secret-dependent can induce a covert
+  channel because of the cache hierarchy. The hierarchy stores the result of
+  the _load_ access to lower the latency of future accesses to the same or
+  neighboring addresses. As such, microarchitectural timing channels are not
+  due to hardware implementation error per se, but rather to exploit the
+  design.
 
 [NOTE]
 .Constant time programming
@@ -52,13 +57,7 @@ constant time programming may only consider architectural timing channels and
 declare microarchitectural leakage out of scope.
 ====
 
-Microarchitectural timing channels are caused by microarchitectural structures
-(buffers, finite state machines, ...) necessary to improve the performance of
-the microarchitecture. Timing variation is there on purpose: for example, cache
-memories introduce timing variability between hit and miss entries to optimize
-repetitive memory accesses. As such, microarchitectural timing channels are not
-due to hardware implementation error per se, but rather to misusing this
-implementation. Hardware techniques to limit covert channels are discussed in
+Hardware and software techniques to limit covert channels are discussed in
 <<mitigating-covert-channels>>.
 
 *Any microarchitectural state that depends on execution history and impacts
