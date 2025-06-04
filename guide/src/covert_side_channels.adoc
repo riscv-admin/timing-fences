@@ -23,7 +23,7 @@ communicated, or leaked, as secret-dependent power consumption measured with an
 oscilloscope. Or a function's duration may depend on secret data; in this case,
 the channel is a timing (covert or side) channel.
 
-Looking at timing channels in a CPU, two main causes can be found:
+In a RISC-V hart, the cause of a timing channel can be two fold:
 
 * *Architectural timing channels* occurs when a program executes different
   instructions, or the same instructions with different architectural
@@ -57,12 +57,28 @@ constant time programming may only consider architectural timing channels and
 declare microarchitectural leakage out of scope.
 ====
 
-Hardware and software techniques to limit covert channels are discussed in
-<<mitigating-covert-channels>>.
+An important aspect to note about the previously described timing channels
+is that they are created because the timer/performance counter resides in the
+Performance Monitoring Unit (PMU), which, often, has no knowledge of the
+security domain in use and switches between different security domains. As a
+result, the contents of the PMU are inherited between processes operating under
+different security domains after a security domain switch is performed. Even
+though timing channels can be mitigated by enlightning the PMU, research has
+shown that there are other methods of creating timers that don't rely on ISA
+PMU primitives. Hence, an implementation that seeks to provide a mitigation
+against timing channels, in reference to its security model, must incorporate
+various mechanisms, that in conjunction, abate the effectiveness of the spy's
+communication channel. Hardware and software techniques to limit covert
+channels are discussed in <<mitigating-covert-channels>>. Regardless of the
+covert channel mitigations implemented, be they described herein or not, it is
+recommended that a hart implements the following extensions: Zkt (and Zvkt for
+V), Smstateen/Ssstateen, Smcntrpmf, and Sscofpmf.
 
-*Any microarchitectural state that depends on execution history and impacts
-timing can be used to implement a covert channel.* This includes cache
-memories, branch predictors, other kinds of buffers (fetch buffers, etc.) even
-finite state machines.
+With all the previous definitions in mind, one can generalize a timing channel
+as the inheritance of microarchitectural state that depends on execution
+history between two security domains. *Any microarchitectural state that
+depends on execution history and impacts timing can be used to implement a
+covert channel.* This includes cache memories, branch predictors, other kinds
+of buffers (fetch buffers, etc.) even finite state machines.
 
 // Example FLUSH+RELOAD ?
