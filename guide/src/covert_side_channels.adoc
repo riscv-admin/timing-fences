@@ -81,4 +81,10 @@ depends on execution history and impacts timing can be used to implement a
 communication channel.* This includes cache memories, branch predictors, other
 kinds of buffers (fetch buffers, etc.) even finite state machines.
 
+[NOTE]
+====
+All concurrently executing harts that modify relevant micro-architectural state
+are included in the execution history.
+====
+
 // Example FLUSH+RELOAD ?
