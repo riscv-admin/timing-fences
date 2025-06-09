@@ -63,7 +63,7 @@ Performance Monitoring Unit (PMU), which, often, has no knowledge of the
 security domain in use and switches between different security domains. As a
 result, the contents of the PMU are inherited between processes operating under
 different security domains after a security domain switch is performed. Even
-though timing channels can be mitigated by enlightning the PMU, research has
+though timing channels can be mitigated by enlightening the PMU, research has
 shown that there are other methods of creating timers that don't rely on ISA
 PMU primitives. Hence, an implementation that seeks to provide a mitigation
 against timing channels, in reference to its security model, must incorporate
