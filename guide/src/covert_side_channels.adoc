@@ -9,7 +9,7 @@ For example, this could allow a user-mode process to read a secret manipulated
 during a system call executed in supervisor mode.
 
 Like any communication channel, there is an emitter (often called the Trojan)
-trying to communicate the secret to the receiver (often called the Spy). Two
+communicating the secret to a receiver (often called the Spy). Two
 threat models are usually considered:
 
 * *Covert Channels* refer to communication channels where both the Trojan
