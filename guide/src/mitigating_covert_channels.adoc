@@ -1,5 +1,5 @@
 [[mitigating-covert-channels]]
-== Mitigating Covert Channels
+== Mitigating Covert and Side Channels
 
 
 include::first_principles.adoc[]

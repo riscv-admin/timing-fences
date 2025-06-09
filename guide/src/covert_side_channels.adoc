@@ -9,7 +9,7 @@ For example, this could allow a user-mode process to read a secret manipulated
 during a system call executed in supervisor mode.
 
 Like any communication channel, there is an emitter (often called the Trojan)
-trying to communicate the secret to the receiver (often called the Spy). Two
+communicating the secret to a receiver (often called the Spy). Two
 threat models are usually considered:
 
 * *Covert Channels* refer to communication channels where both the Trojan
@@ -39,7 +39,7 @@ In a RISC-V hart, the cause of a timing channel can be two fold:
   of timing channels can occur even in the absence of architectural timing
   channels, with a correct software implementation. In this case, timing
   variation can still occur due to the hardware implementation. For example, a
-  _load_ instruction whose address is secret-dependent can induce a covert
+  _load_ instruction whose address is secret-dependent can induce a communication
   channel because of the cache hierarchy. The hierarchy stores the result of
   the _load_ access to lower the latency of future accesses to the same or
   neighboring addresses. As such, microarchitectural timing channels are not
@@ -63,22 +63,28 @@ Performance Monitoring Unit (PMU), which, often, has no knowledge of the
 security domain in use and switches between different security domains. As a
 result, the contents of the PMU are inherited between processes operating under
 different security domains after a security domain switch is performed. Even
-though timing channels can be mitigated by enlightning the PMU, research has
+though timing channels can be mitigated by enlightening the PMU, research has
 shown that there are other methods of creating timers that don't rely on ISA
 PMU primitives. Hence, an implementation that seeks to provide a mitigation
 against timing channels, in reference to its security model, must incorporate
 various mechanisms, that in conjunction, abate the effectiveness of the spy's
-communication channel. Hardware and software techniques to limit covert
+communication channel. Hardware and software techniques to limit communication
 channels are discussed in <<mitigating-covert-channels>>. Regardless of the
-covert channel mitigations implemented, be they described herein or not, it is
-recommended that a hart implements the following extensions: Zkt (and Zvkt for
-V), Smstateen/Ssstateen, Smcntrpmf, and Sscofpmf.
+communication channel mitigations implemented, be they described herein or not,
+it is recommended that a hart implements the following extensions: Zkt (and
+Zvkt for V), Smstateen/Ssstateen, Smcntrpmf, and Sscofpmf.
 
 With all the previous definitions in mind, one can generalize a timing channel
 as the inheritance of microarchitectural state that depends on execution
 history between two security domains. *Any microarchitectural state that
 depends on execution history and impacts timing can be used to implement a
-covert channel.* This includes cache memories, branch predictors, other kinds
-of buffers (fetch buffers, etc.) even finite state machines.
+communication channel.* This includes cache memories, branch predictors, other
+kinds of buffers (fetch buffers, etc.) even finite state machines.
+
+[NOTE]
+====
+All concurrently executing harts that modify relevant micro-architectural state
+are included in the execution history.
+====
 
 // Example FLUSH+RELOAD ?
