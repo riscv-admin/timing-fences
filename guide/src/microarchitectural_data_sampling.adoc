@@ -1,3 +1,21 @@
 [[microarchitectural-data-sampling]]
 ==== Microarchitectural Data Sampling
 
+Microarchitectural Data Sampling (MDS) attacks are the direct utilization of covert channels to mount an exploit.
+
+[NOTE]
+.There are no consensus on the MDS definition
+====
+The original idiosyncratic definition of MDS references a set of publications by a group of researchers, but the definition is not really usable.
+In this document, we redefine MDS attacks in opposition to Spectre attacks with respect to how the targeted secret value is used in the vulnerable application (legitimately or not).
+This definition is not universally shared (unfortunately as most definitions related to microarchitecture security).
+====
+
+Imagine an application that must legitimately handle secret data: typically user authentication application (PIN verification, sudo, ...).
+As a programmer, you may (and you should !) have formally proven that you handle your secrets correctly, with data-independent instructions, erasing memories and registers where and when they should, etc.
+But the programmer has no direct control on the microarchitecture. Maybe the secret value is still present in the Load Store Unit (LSU), the hardware component responsible for the execution of load and store instructions, even after the careful state cleaning performed by the application.
+And an attacker may succeed in recovering the secret from the LSU.
+
+(See attacks RIDL, Fallout, ZombieLoad for examples of such exploits).
+
+In other word, MDS attacks use a side channel, often tied to the LSU but no limited to, to exfiltrate the secret to the attacker.

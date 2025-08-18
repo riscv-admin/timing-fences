@@ -1,7 +1,14 @@
 [[spectre-attacks]]
 ==== Spectre Attacks
 
+Spectre attacks can exfiltrate a secret even if not legitimately used by an application.
+There are lots of different variants, that can be generalized, as presented in this section.
+
+The attacks presented here assume a modern speculative out-of-order core.
+
+===== The attacks explained
 
 
 
+===== Meltdown
 // Meltdown as a spectre attack
