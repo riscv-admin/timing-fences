@@ -95,7 +95,7 @@ covert channel mitigations implemented, be they described herein or not, it is
 recommended that a hart implements the following extensions: Zkt (and Zvkt for
 V), Smstateen/Ssstateen, Smcntrpmf, and Sscofpmf.
 
-
+[[covert-summary]]
 ==== Summary
 
 With all the previous definitions in mind, one can generalize a timing channel

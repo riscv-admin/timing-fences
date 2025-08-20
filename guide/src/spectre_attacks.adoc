@@ -62,6 +62,9 @@ There are 4 main speculation sources today in speculative cores, each one lead t
 * Store to load aliasing.
 * Value prediction.
 
+A second direction to modify the gadget is to use a different covert channel.
+The example attack exfiltrate the secret though a cache based covert channel, but as discussed before (<<covert-summary>>) there are lots of other possibilities to exfiltrate data.
+
 // Branch target injection
 
 
