@@ -6,8 +6,63 @@ There are lots of different variants, that can be generalized, as presented in t
 
 The attacks presented here assume a modern speculative out-of-order core.
 
-===== The attacks explained
+===== The attack explained
 
+In this example attack, the goal of the attacker is to read (part of) a secret located at address SECRET_ADDRESS.
+The attacker is only able to execute code at user level, but the secret is only readable from supervisor level.
+
+The attacker is able to find a Spectre gadget, such as the one illustrated below, in the privileged code (for example in a system call), where they can control the value of variable `x`.
+
+[source,c]
+.Gadget Spectre-PHT
+----
+if (x < ARRAY1_SIZE) {
+    y = array1[x];
+    z = shared_array[y];
+}
+----
+
+====== Training
+
+The first phase of the attack consists in training the branch predictor to consider the `if` branch to always be taken.
+For that, the attacker repeatedly execute the Spectre gadget with an innocuous value for `x`, within the array bounds.
+
+
+====== Reading the secret
+
+Once the branch predictor is trained, the proper malicious execution can start.
+The attacker selects the value of `x` as `x = SECRET_ADDRESS - array1`; a value very certainly out of the array bounds.
+
+During this gadget execution, the branch is predicted taken and `array1[x]` is accessed.
+This access is therefore a load at address `array1 + x = array1 + SECRET_ADDRESS - array1 = SECRET_ADDRESS`: the secret has been read and assigned to variable `y` !
+
+====== Exfiltrationg through a covert channel
+
+At this point, the secret is present in variable `y`, but the attacker want to recover the value in its own execution context (the gadget is executing inside a system call for example).
+Therefore the secret is exfiltrated by using a covert channel, here by using the secret as the index of a read access: the corresponding data will be pushed inside the data cache.
+
+====== Spying on the covert channel
+
+The speculation window is incorrect, since the access is out-of-bounds inside the gadget, but it takes several clock cycles for the core to realize its error.
+At some point it does, and the execution of the gadget is canceled: the not-taken branch direction is followed instead.
+But at this point, the data cache has been modified by including a line of the shared array. Which line depends on the secret value.
+
+The attacker can now receive the value from the covert channel by testing which line of the shared array is presend, revealing a part of the secret.
+
+
+===== Spectre Variants
+
+Several modifications of the presented attack are possible.
+
+On one direction, it is possible to build Spectre gadgets with different speculation techniques.
+There are 4 main speculation sources today in speculative cores, each one lead to a Spectre variant.
+
+* Branch direction prediction: is a branch taken or not, give variant Spectre v1 or Spectre-PHT since the Pattern History Table (PHT) is a microarchitectural structure used for that prediction.
+* Branch/jump destination prediction tries to predict the actual address of the branch/jump outcome. It gives the Spectre v2 variant, or Spectre-BTB / Spectre-RSB depending on the targeted microarchitectural structure.
+* Store to load aliasing.
+* Value prediction.
+
+// Branch target injection
 
 
 ===== Meltdown
