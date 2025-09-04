@@ -11,7 +11,7 @@ include::git_sha.adoc[]
 :revinfo:
 :url-riscv: http://riscv.org
 :doctype: book
-:imagesdir: images
+:imagesdir: ../docs-resources/images
 :title-logo-image: image:risc-v_logo.png["RISC-V International Logo",pdfwidth=3.25in,align=center]
 :reproducible:
 :imagesoutdir: ../build/images

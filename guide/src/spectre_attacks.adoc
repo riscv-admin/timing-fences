@@ -59,14 +59,23 @@ There are 4 main speculation sources today in speculative cores, each one lead t
 
 * Branch direction prediction: is a branch taken or not, give variant Spectre v1 or Spectre-PHT since the Pattern History Table (PHT) is a microarchitectural structure used for that prediction.
 * Branch/jump destination prediction tries to predict the actual address of the branch/jump outcome. It gives the Spectre v2 variant, or Spectre-BTB / Spectre-RSB depending on the targeted microarchitectural structure.
-* Store to load aliasing.
-* Value prediction.
+* Store to load aliasing speculation designates the possibility for the core to speculate that a load following a store access the same address or not. If the same address is used, the data can be forwarded directly at the Load/Store Unit level.
+* Value prediction is the generic term for predicting the value resulting from the execution of an instruction writing to the destination register. This kind of speculation is still rarely performed.
 
 A second direction to modify the gadget is to use a different covert channel.
 The example attack exfiltrate the secret though a cache based covert channel, but as discussed before (<<covert-summary>>) there are lots of other possibilities to exfiltrate data.
+
+Depending on the attack scenario, the execution of the different gadgets (training, secret access and exfiltration, secret recovery) can occur in different execution domain (typically at different privilege levels), or not.
+This will depends on the precise goal of the attacker and the targeted machine and the software ecosystem running on it.
 
 // Branch target injection
 
 
 ===== Meltdown
+
 // Meltdown as a spectre attack
+The Meltdown attack exploit the out-of-order execution behavior to exfiltrate a secret.
+Reading from a memory address in a kernel page will raise an exception if read from the user privilege level.
+But in some processors, the exception handling is only done during commit, potentially leaving a window where the illegaly accessed data is exfiltrated to a covert channel.
+
+In a way, it is possible to model this attack as a no-exception speculation: the core always speculates that no exception is raised and continue execution.

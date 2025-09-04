@@ -40,6 +40,7 @@ REQUIRES := --require=asciidoctor-bibtex \
 .PHONY: all build clean build-container build-no-container
 
 all: $(GIT_SHA_DOC) build
+all-nix: $(GIT_SHA_DOC) build-no-container
 
 $(GIT_SHA_DOC): .FORCE
 	echo ":git_sha: $$(git describe --dirty --always)" > $@
