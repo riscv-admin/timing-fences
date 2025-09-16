@@ -11,7 +11,7 @@ In this document, we redefine MDS attacks in opposition to Spectre attacks with 
 This definition is not universally shared (unfortunately as most definitions related to microarchitecture security).
 ====
 
-Imagine an application that must legitimately handle secret data: typically user authentication application (PIN verification, sudo, ...).
+Imagine an application that must legitimately handle secret data: typically user authentication applications (PIN verification, sudo, ...).
 As a programmer, you may (and you should !) have formally proven that you handle your secrets correctly, with data-independent instructions, erasing memories and registers where and when they should, etc.
 But the programmer has no direct control on the microarchitecture. Maybe the secret value is still present in the Load Store Unit (LSU), the hardware component responsible for the execution of load and store instructions, even after the careful state cleaning performed by the application.
 And an attacker may succeed in recovering the secret from the LSU.

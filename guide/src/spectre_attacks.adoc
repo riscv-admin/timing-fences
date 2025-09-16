@@ -75,4 +75,4 @@ The Meltdown attack exploits the out-of-order execution behavior to exfiltrate a
 Reading from a memory address in a kernel page will raise an exception if accessed from user privilege level.
 However, in some processors, the exception handling is only done during commit, potentially leaving a window where the illegally accessed data is exfiltrated to a covert channel.
 
-In a way, it is possible to model this attack as a no-exception speculation: the core always speculates that no exception is raised and continues execution. In this case, Meltdown is seen as a special case of Spectre attack.
+In a way, it is possible to model this attack as a no-exception speculation: the core always speculates that no exception is raised and continues execution until the commit stage. In this case, Meltdown can be seen as a special case of Spectre attacks.

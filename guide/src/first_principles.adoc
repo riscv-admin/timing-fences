@@ -1,3 +1,13 @@
 [[first-principles]]
 === First Principles
 
+To counter covert channels, designers must guarantee timing independence across security domains :
+
+[quote]
+The timing of execution in a security domains must be independant from the execution in other security domains.
+
+Easier said than done, how to design a microarchitecture respecting this principle is still largely unknown.
+
+Today, the consensus is to guarantee state partioning, mainly in its two flavors temporal and spatial partioning.
+Temporal partitioning, discussed in <<temporal-partitioning>>, focuses on how to properly execute security domains, one at a time.
+Wherease spatial partitioning (<<spatial-partitioning>>), discusses how to have security domains coexisting in the microarchitecure to switch quickly between domains.

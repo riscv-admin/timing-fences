@@ -1,3 +1,9 @@
 [[temporal-partitioning]]
 === Temporal Partitioning
 
+Temporal partitioning means that at any given time, the microarchitectural state is exclusively associated with a single security domain.
+
+For example, until recently, branch predictors were not cleared when switching between processes, or when changing the privilege level. In this case, it becomes possible for an attacker to create a covert channel leveraging this microarchitectural state.
+
+To prevent covert channels, switching to a new domain requires flushing the entire microarchitectural state, which can be prohibitively slow in some cases. 
+Branch predictors state must flushed, cache memories must be flushed, finite state machined must be reseted into a default state, ...
