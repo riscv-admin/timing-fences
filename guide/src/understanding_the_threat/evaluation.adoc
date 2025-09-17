@@ -1,0 +1,6 @@
+[[covert_evaluation]]
+=== Evaluating covert channels
+
+==== Experimental evaluation
+
+==== Formal evaluation

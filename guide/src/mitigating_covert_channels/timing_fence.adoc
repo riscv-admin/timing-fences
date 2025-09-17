@@ -1,0 +1,2 @@
+[[timing_fence]]
+=== Timing fence

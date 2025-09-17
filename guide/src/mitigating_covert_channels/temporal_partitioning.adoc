@@ -5,5 +5,16 @@ Temporal partitioning means that at any given time, the microarchitectural state
 
 For example, branch predictors are not always cleared when switching between processes, or when changing the privilege level. In this case, it becomes possible for an attacker to create a covert channel leveraging this microarchitectural state.
 
-To prevent covert channels, switching to a new domain requires flushing the entire microarchitectural state, which can be prohibitively slow in some cases. 
-Branch predictors state must flushed, cache memories must be flushed, finite state machined must be reseted into a default state, ...
+To prevent covert channels, switching to a new domain requires flushing the entire microarchitectural state. 
+Branch predictors state must flushed, cache memories must be flushed, finite state machined must be reseted into a default state, ... and erasing state must be done in a constant-time manner.
+
+The word *flushed* is used here as a generic term, that can recoup different techniques.
+In modern cores, branch predictor state and cache memories are implemented with SRAMs and can use kB or MB of data. Actually forcing the entries to zero would be prohibitively time consuming.
+
+For branch predictor state, it is enough to *invalidate* the entries (setting the _valid_ bit to 0).
+Invalid entries should never be read, and will eventually be overwritten.
+
+Write-through cache memory entries can similarly be invalidated.
+But the more popular write-back cache memories cannot use this simple solution, since _dirty_ entries must be written back in the memory hierarchy to ensure memory coherence.
+Therefore, hardware and software must cooperate to write back dirty entries in a constant-time manner, whatever the number of entries to write-back (thus assuming the worst-case scenario).
+If security is a primary concern, transitioning from write-back to write-through cache memories should be considered in the performance vs security trade-off.
