@@ -2,5 +2,5 @@
 == Understanding the Threat
 
 
-include::covert_side_channels.adoc[]
-include::exploiting_covert_channels.adoc[]
+include::understanding_the_threat/covert_side_channels.adoc[]
+include::understanding_the_threat/exploiting_covert_channels.adoc[]
