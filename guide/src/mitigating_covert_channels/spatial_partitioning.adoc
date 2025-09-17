@@ -1,2 +1,12 @@
 [[spatial-partitioning]]
 === Spatial Partitioning
+
+Spatial partitioning means that, at the same point in time, different security domains have separate, dedicated microarchitectural resources. This approach prevents direct interference between domains without requiring frequent state flushes. However, it may require additional hardware support and careful resource allocation to avoid inefficiencies. Two variants of spatial partitioning are frequently used:
+
+    
+* *Tag-based partitioning* assigns a tag value to each microarchitectural resource entry, indicating the associated security domain. Since tag-based partitioning can dynamically adjust the proportion of entries allocated to each security domain, it allows for a high-performance solution. However, it does not protect against covert channels efficiently: entry allocation itself can be exploited as a covert channel.
+
+// branch target injection
+
+* *Static partitioning* is required to prevent covert channels. In this approach, resource allocation remains constant for the lifetime of any security domain, ensuring that no unintended information leakage occurs.
+
