@@ -3,10 +3,13 @@
 
 Spatial partitioning means that, at the same point in time, different security domains have separate, dedicated microarchitectural resources. This approach prevents direct interference between domains without requiring frequent state flushes. However, it may require additional hardware support and careful resource allocation to avoid inefficiencies. Two variants of spatial partitioning are frequently used:
 
-    
 * *Tag-based partitioning* assigns a tag value to each microarchitectural resource entry, indicating the associated security domain. Since tag-based partitioning can dynamically adjust the proportion of entries allocated to each security domain, it allows for a high-performance solution. However, it does not protect against covert channels efficiently: entry allocation itself can be exploited as a covert channel.
+
+Nevertheless, tag-based partitioning is an efficient countermeasure in some specific cases. For example, branch target injection denotes the attacker's ability to control the predicted branch target.
+In some Spectre attacks, branch target injection is used from user code to force the core to mispredict at a specific location in kernel code in order to trigger a Spectre gadget.
+In this case, tag-based partitioning prevents the user code from influencing the kernel-level predictions.
 
 // branch target injection
 
 * *Static partitioning* is required to prevent covert channels. In this approach, resource allocation remains constant for the lifetime of any security domain, ensuring that no unintended information leakage occurs.
-
+It implies, for example, partitioning a cache memory, effectively splitting it into two or more sub-memories. The associated performance cost, due to halving the cache, may be high and must be evaluated with respect to the cost of security domain switching.

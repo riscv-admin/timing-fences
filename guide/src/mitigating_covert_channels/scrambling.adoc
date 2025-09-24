@@ -1,0 +1,13 @@
+[[scrambling]]
+=== Scrambling
+
+// Scramble Cache: An Efficient Cache Architecture for Randomized Set Permutation
+
+A probabilistic alternative to temporal and spatial partitioning is to scramble microarchitectural state.
+Using the cache memory example, and assuming a set-associative cache, the covert channel danger is that the Spy can decide if a cache line has been accessed by the Trojan, and in which set it is present.
+The designer can ``scramble'' the selected set with a keyed pseudorandom function applied on the _set selector bits_ of the adress.
+If the security domain changes, the key is changed as well, making all the cache line entries obsolete.
+If execution returns to the initial security domain, the initial key is reestablished and old entries are valid again.
+It is still necessary to modify the cache behavior to account for the scrambling: e.g. collision (same tag, same set) with a different key should not assume that it is the same cache line.
+
+The probabilistic nature of this countermeasure does not allow the same security guarantee as temporal an spatial partitioning ; but it is expected to have a low overhead.

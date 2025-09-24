@@ -5,4 +5,5 @@
 include::mitigating_covert_channels/first_principles.adoc[]
 include::mitigating_covert_channels/temporal_partitioning.adoc[]
 include::mitigating_covert_channels/spatial_partitioning.adoc[]
+include::mitigating_covert_channels/scrambling.adoc[]
 include::mitigating_covert_channels/timing_fence.adoc[]
