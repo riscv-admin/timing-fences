@@ -13,3 +13,4 @@ In this case, tag-based partitioning prevents the user code from influencing the
 
 * *Static partitioning* is required to prevent covert channels. In this approach, resource allocation remains constant for the lifetime of any security domain, ensuring that no unintended information leakage occurs.
 It implies, for example, partitioning a cache memory, effectively splitting it into two or more sub-memories. The associated performance cost, due to halving the cache, may be high and must be evaluated with respect to the cost of security domain switching.
+
