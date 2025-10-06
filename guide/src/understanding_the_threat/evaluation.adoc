@@ -1,6 +1,13 @@
 [[covert_evaluation]]
 === Evaluating covert channels
 
+The possibility of preventing covert channels in the microarchitecture implies evaluating them.
+Are covert channels possible? How much data can they transmit per second?
+
+The question of how to evaluate covert channels accurately and efficiently is not settled: there is no single technique used for that purpose.
+As a communication channel, a covert channel has a channel capacity, as defined by C. Shannon, i.e. a maximum information transmission bandwidth.
+
 ==== Experimental evaluation
+
 
 ==== Formal evaluation
