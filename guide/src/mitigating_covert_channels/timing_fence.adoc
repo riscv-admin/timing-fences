@@ -3,25 +3,25 @@
 
 A difficulty with partitioning is identifying security domain switches.
 There is no explicit definition of security domains in the RISC-V ISA.
-Yet there are implicit ones : privilege levels, address space identifiers (ASID), virtual machine identifiers (VMID), supervisor domain identifiers (SDID), ...
+Yet there are implicit ones: privilege levels, address space identifiers (ASID), virtual machine identifiers (VMID), supervisor domain identifiers (SDID), ...
 It is possible to have the microarchitecture adapt to these implicit domain switches, implementing partitioning with respect to them.
 
-But *separation of concerns* is necessary, the ASID value has not been designed as a security feature, but as an optimization.
-The attackers could meddle with the value, searching for collisions by spawning lots of processes for example, to control partitioning.
+However, *separation of concerns* is necessary: the ASID value has not been designed as a security feature but as an optimization.
+Attackers could meddle with the value, searching for collisions by spawning lots of processes, for example, to control partitioning.
 
 **(To be updated with fence.time progress)** A current RISC-V extension proposal introduces the `fence.time` timing fence, with the following semantics:
 
 [NOTE]
 .fence.time semantics
 ====
-The timing of any instruction or sequence of instructions that execute after FENCE.TIME must be independent of any sequence of instructions before the fence, or equivalently independent of the microarchitectural state before the fence.
+The timing of any instruction or sequence of instructions that executes after FENCE.TIME must be independent of any sequence of instructions before the fence, or equivalently independent of the microarchitectural state before the fence.
 ====
 
 In other words, the timing fence is an instruction that signals to the microarchitecture when partitioning is necessary.
 
-Optional arguments to `fence.time` can give precisions on the specific security domain switch tied to the fence.
+Optional arguments to `fence.time` can provide details about the specific security domain switch associated with the fence.
 Possible flags include *Priv* for a privilege level change, *AS* for an address space change, *SD* for a supervisor domain change, *VM* for a virtual machine change.
 
 The consequences of the fence execution on the hardware can therefore depend on the flags.
-For example, the execution `fence.time Priv` on a core that implement spatial branch predictor state partioning depending on the privilege level does not require to flush this particular branch predictor state, while it may still trigger other cache memories' flush. The same `fence.time Priv` execution on a core without spatial branch predictor state partioning should trigger the corresponding state flush.
+For example, the execution of `fence.time Priv` on a core that implements spatial branch predictor state partitioning based on the privilege level does not require flushing this particular branch predictor state, while it may still trigger the flushing of other caches. The same `fence.time Priv` execution on a core without spatial branch predictor state partitioning should trigger a flush of the corresponding state.
 `fence.time` without any flags is the strictest version and should imply a complete flush of the microarchitectural state.
