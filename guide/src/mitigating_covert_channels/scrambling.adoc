@@ -2,7 +2,7 @@
 === Scrambling
 
 A probabilistic alternative to temporal and spatial partitioning is to scramble microarchitectural state.
-Using the cache memory example, and assuming a set-associative cache, the covert channel danger is that the spy can determine if a cache line has been accessed by the trojan and in which set it is located.
+Using the cache memory example, and assuming a set-associative cache, one covert channel danger is that the spy can determine if a cache line has been accessed by the trojan and in which set it is located.
 The designer can "scramble" the selected set with a keyed pseudorandom function applied to the _set selector bits_ of the address.
 If the security domain changes, the key is changed as well, making all the cache line entries obsolete.
 If execution returns to the initial security domain, the initial key is reestablished and old entries become valid again.
