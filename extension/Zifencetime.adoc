@@ -10,7 +10,7 @@ include::zifencetime-encoding.edn[]
 .[FENCE.TIME Instruction Encoding]
 
 [literal]
-The timing of any instruction or sequence of instructions that execute after FENCE.TIME must be independent of any sequence of instructions before the fence, or equivalently independent of the microarchitectural state before the fence.
+The timing of any instruction or sequence of instructions that execute after FENCE.TIME must be independent of any sequence of instructions before the fence, or, equivalently, independent of the microarchitectural state before the fence.
 
 Flags indicating the associated security boundary may exclude this requirement for some subsets of microarchitectural state.
 
@@ -22,9 +22,12 @@ The `SD` flag equal to 1 indicates a change of supervisor domain, typically asso
 
 The `VM` flag equal to 1 indicates a switch to another virtual machine, typically associated with a VMID modification.
 
+The scope of the FENCE.TIME semantics applies only to the local hart, and excludes the memory hierarchy.
+To mitigate covert channels arising from cache memories, explicit cache management operations may be required.
+
 [NOTE]
 ====
-This instruction is a hint functionally equivalent to a NOP. Adding or removing this instruction does not change the functionality of the program, but it can drastically alter performance.
+This instruction is a hint, functionally equivalent to a NOP. Adding or removing this instruction does not change the functionality of the program, but it can drastically alter performance and security.
 ====
 
 [WARNING]
