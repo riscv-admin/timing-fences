@@ -1,5 +1,15 @@
 { pkgs ? import <nixpkgs> {} }:
 
+let
+    pkgs = import (builtins.fetchGit {
+        # Descriptive name to make the store path easier to identify                
+        name = "pinned_nix_packages";                                                 
+        url = "https://github.com/nixos/nixpkgs/";                       
+        ref = "nixos-25.05";                     
+        rev = "ac62194c3917d5f474c1a844b6fd6da2db95077d";                                           
+    }) {};                                                                           
+in
+
 pkgs.mkShell {
   buildInputs = with pkgs; [
     # Ruby and gems required for asciidoctor
