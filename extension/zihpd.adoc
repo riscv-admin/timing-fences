@@ -1,0 +1,55 @@
+== "Zihpd" - Hardware Protection Domains, Version 0.1
+
+Zihpd defines a hardware protection domain that consists of code and data
+within a protection boundary defined by hardware-enforced access control
+mechanisms. A hardware protection domain is identified by the combination
+of the following identifiers:
+
+* The current privilege level.
+
+* The address space identifier (`satp.ASID`) when supervisor mode is also
+  implemented, the current privilege level is S or U, and the `satp.MODE` is not
+   `Bare`.
+
+* When the H or Shbare extension is also implemented:
+
+  ** The current virtualization mode (`V`).
+  ** The current virtual machine identifier (`hgatp.VMID`), when `hgatp.MODE` is
+     not `Bare` and `V=1`.
+  ** The address space identifier (`satp.ASID`), when the current privilege
+     level is HS and `satp.MODE` is not `Bare`.
+  ** The address space identifier (`vsatp.ASID`), when the current privilege
+     level is VS or VU and `vsatp.MODE` is not `Bare`.
+
+
+* When the Smsdid extension is also implemented:
+  ** The current supervisor domain identifier (SDID).
+
+When the Zihpd extension is implemented, predictions learned in one hardware
+protection domain cannot be used to predict outcomes in another hardware
+protection domain.
+
+When an identifier used to identify a hardware protection domain is reused,
+software must execute `fence.time` to ensure that predictions created by code
+that previously executed in that hardware protection domain do not affect
+outcomes for code that subsequently executes in that hardware protection
+domain.
+
+Zihpd extension depends on Zifencetime.
+
+[NOTE]
+====
+When Zihpd is implemented, the predictors for control-flow, data-dependency, and
+data-value prediction may be tagged with the identifiers of the hardware
+protection domain in which they were learned to prevent their use in predicting
+outcomes in a different hardware protection domain. Alternatively, the
+implementation may invalidate or clear predictions when the hardware protection
+domain changes. A combination of these two techniques may also be employed,
+wherein some types of predictors use tagging and others use invalidation as a
+defense.
+
+Executing `fence.time` may incur substantial overhead. When Zihpd is implemented,
+`fence.time` is required only when an identifier is reused. If an implementation
+provides a sufficiently large identifier space, reuse is infrequent, which
+mitigates the cost of invoking the fence.
+====
