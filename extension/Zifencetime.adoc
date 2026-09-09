@@ -1,36 +1,94 @@
 [[zifencetime]]
-== "Zifencetime" Extension for Timing Fence
+== "Zifencetime" Extension for Timing Fences
 
-FENCE.TIME is an instruction that can be used to ensure microarchitectural state isolation.  
-FENCE.TIME is a contract between software and hardware; its semantics are intended to prevent the occurrence of covert channels.
+The Zifencetime extension defines five operandless timing-fence instructions.
+Each instruction identifies the architectural security boundary to which its timing-isolation guarantee applies.
 
-include::zifencetime-encoding.edn[]
+[[zifencetime-semantics]]
+=== Common semantics
 
-[[zifencetime-encoding]]
-.[FENCE.TIME Instruction Encoding]
+Within the scope of a timing-fence instruction, the timing of any instruction or sequence of instructions that executes after the fence must be independent of any sequence of instructions before the fence, or, equivalently, independent of the microarchitectural state before the fence.
 
-[literal]
-The timing of any instruction or sequence of instructions that execute after FENCE.TIME must be independent of any sequence of instructions before the fence, or, equivalently, independent of the microarchitectural state before the fence.
+A boundary-specific instruction may leave microarchitectural state unchanged only when that state is partitioned by the named boundary such that it cannot carry a timing dependency across the boundary.
 
-Flags indicating the associated security boundary may exclude this requirement for some subsets of microarchitectural state.
+The scope of all timing-fence instructions is limited to the local hart and excludes the memory hierarchy.
+Explicit cache-management operations may be required to mitigate covert channels arising from cache memories.
 
-The `Priv` flag equal to 1 indicates that the fence is associated with a privilege-level switch.  
+[[zifencetime-instructions]]
+=== Timing-fence instructions
 
-The `AS` flag equal to 1 indicates a change of address space, typically associated with an ASID modification.
+[cols="2,2,5",options="header"]
+|===
+|Instruction
+|Permitted execution modes
+|Scope
 
-The `SD` flag equal to 1 indicates a change of supervisor domain, typically associated with a SDID modification.
+|`FENCE.TIME`
+|M, HS/S, VS, U, and VU
+|Applies a full timing fence to microarchitectural state attributable to the current privilege mode and all less-privileged modes.
+It is used when a narrower architectural boundary cannot identify the domains being separated, including when an ASID is reused.
 
-The `VM` flag equal to 1 indicates a switch to another virtual machine, typically associated with a VMID modification.
+|`SFENCE.PRIV.TIME`
+|M, HS/S, and VS
+|Makes the timing of younger instructions independent of older instructions executed in less-privileged modes.
 
-The scope of the FENCE.TIME semantics applies only to the local hart, and excludes the memory hierarchy.
-To mitigate covert channels arising from cache memories, explicit cache management operations may be required.
+|`SFENCE.TIME`
+|M, HS/S, and VS
+|Applies at an address-space switch, typically when the ASID changes.
+State that is securely partitioned by ASID need not be reset.
+
+|`HFENCE.TIME`
+|M and HS
+|Applies at a virtual-machine switch, typically when the VMID changes.
+State that is securely partitioned by VMID need not be reset.
+
+|`MFENCE.TIME`
+|M
+|Applies at a supervisor-domain switch, typically when the SDID changes.
+State that is securely partitioned by SDID need not be reset.
+|===
+
+`HFENCE.TIME` is defined only when the H extension is implemented.
+
+[[zifencetime-privilege]]
+=== Privilege and virtualization
+
+`FENCE.TIME` is an unprivileged instruction and is executable in every privilege mode, subject to the following trap controls:
+
+* When `mstatus.TSR` is 1, an attempt to execute `FENCE.TIME` in S-mode or HS-mode raises an illegal-instruction exception.
+* When `hstatus.VTSR` is 1, an attempt to execute `FENCE.TIME` in VS-mode raises a virtual-instruction exception.
+* `TSR` and `VTSR` do not affect execution of `FENCE.TIME` in M-mode, U-mode, or VU-mode.
+
+`SFENCE.PRIV.TIME` and `SFENCE.TIME` are supervisor-level instructions.
+They are executable in M-mode, S-mode or HS-mode, and VS-mode.
+An attempt to execute either instruction in U-mode raises an illegal-instruction exception; an attempt in VU-mode raises a virtual-instruction exception.
+
+`HFENCE.TIME` is a hypervisor instruction.
+It is executable only in M-mode and HS-mode.
+An attempt to execute it while `V=1` raises a virtual-instruction exception, and an attempt in U-mode raises an illegal-instruction exception.
+
+`MFENCE.TIME` is executable only in M-mode.
+An attempt to execute it in any other mode raises an illegal-instruction exception.
+
+Neither `TSR` nor `VTSR` affects the execution of the other timing-fence instructions.
 
 [NOTE]
 ====
-This instruction is a hint, functionally equivalent to a NOP. Adding or removing this instruction does not change the functionality of the program, but it can drastically alter performance and security.
+A root hypervisor can emulate a `FENCE.TIME` trapped from a guest hypervisor by executing `FENCE.TIME` in HS-mode.
+An M-mode hypervisor can similarly use the `TSR`-controlled trap to emulate `FENCE.TIME` for S-mode.
+====
+
+[[zifencetime-effects]]
+=== Architectural effect
+
+[NOTE]
+====
+When a timing-fence instruction completes without trapping, it has no architecturally visible effect and is functionally equivalent to a NOP.
+Adding or removing one can nevertheless alter performance and security drastically.
 ====
 
 [WARNING]
 ====
-The effectiveness of FENCE.TIME depends heavily on the underlying hardware implementation, which may vary between systems. Even when FENCE.TIME is used correctly, a comprehensive security evaluation is essential to ensure that the intended microarchitectural state isolation is achieved and that all potential covert channels are effectively mitigated.
+The effectiveness of the timing-fence instructions depends heavily on the underlying hardware implementation, which may vary between systems.
+Even when the instructions are used correctly, a comprehensive security evaluation is essential to ensure that the intended microarchitectural state isolation is achieved and that all potential covert channels are effectively mitigated.
 ====

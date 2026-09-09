@@ -21,7 +21,6 @@ pkgs.mkShell {
     libxml2
     
     # Dependencies for diagrams
-    nodePackages.wavedrom-cli
     graphviz
     plantuml
     
