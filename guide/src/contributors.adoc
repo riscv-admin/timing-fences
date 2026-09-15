@@ -1,7 +1,3 @@
 == Contributors
 
-This RISC-V specification has been contributed to directly or indirectly by:
-
-[%hardbreaks]
-* Author1 <required1@email.com>
-* Author2 <required2@email.com>
+This guide is published by the RISC-V Timing Fences Task Group.

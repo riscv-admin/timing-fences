@@ -1,18 +1,25 @@
 [colophon]
 = Preface
 
-This document provides guidance on understanding and mitigating covert channels in RISC-V implementations. It is intended for hardware designers, security researchers, and system architects working with RISC-V architecture.
+This short, non-normative guide is intended for hardware designers, security
+researchers, and operating-system and hypervisor architects who assess covert
+channels in RISC-V systems. It explains how to state a timing-isolation claim,
+select and evaluate mitigations, and reason about the proposed timing-fence
+instructions.
 
-This document was created by the RISC-V Timing Fences Task Group to address the growing concerns about side-channel and covert channel attacks in modern processor architectures.
+Familiarity with current RISC-V specifications is assumed.
+In this guide, a *security domain* is an entity or group of entities that a
+security policy treats as a distinct unit of trust and protection. It may
+correspond to a process, virtual machine, operating system, tenant, or trusted
+execution environment. It is not defined merely by an ASID, VMID, SDID, or
+privilege level.
 
-This document is released under a Creative Commons Attribution 4.0 International License.
+*Timing isolation* means that, within the stated threat and observation model,
+no effect of activity on one side of a specified policy boundary can be observed
+through timing on the other side. The glossary in <<covert-side-channels>>
+defines the remaining terms used in this guide.
 
-[WARNING]
-Terminology, definitions, etc., on microarchitectural attacks have not completely converged at the time of this writing.
-In this document, we take an opinionated stance where we define and use consistent terminology that thus may diverge from other documents on the same topic.
+This guide is non-normative.
 
-[WARNING]
-.This document is in the link:https://lf-riscv.atlassian.net/wiki/display/HOME/Specification+States[Development state]
-====
-Assume everything can change. This draft specification will change before being accepted as standard, so implementations made to this draft specification will likely not conform to the future standard.
-====
+This document is released under a Creative Commons Attribution 4.0
+International License.
